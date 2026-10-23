@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Receivables &amp; Payables Aging - who owes what, how late (offline)</title>
+    <meta
+      name="description"
+      content="Bucket outstanding invoices by age per party, with payment reminder text. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Receivables &amp; Payables Aging</h1>
+          <p>See who owes what and how late, and write the reminders.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-in">
+        <h2 id="h-in">1. Open items</h2>
+        <label class="dropzone" id="drop"
+          >Drop an Excel or CSV of outstanding invoices here, or click to choose<input type="file" id="file" accept=".xlsx,.xls,.csv,.tsv"
+        /></label>
+        <p class="hint">
+          Columns: Party (customer or vendor), Invoice No, Invoice Date, Due Date (optional), Outstanding amount. Credit notes can be
+          negative or in brackets.
+        </p>
+        <div class="grid">
+          <div><label for="asof">Age as of</label><input type="date" id="asof" /></div>
+          <div>
+            <label for="from">Count age from</label
+            ><select id="from">
+              <option value="due">Due date</option>
+              <option value="invoice">Invoice date</option>
+            </select>
+          </div>
+          <div><label for="edges">Bucket limits (days)</label><input type="text" id="edges" value="30, 60, 90" /></div>
+          <div><label for="credit">Credit days when due date is missing</label><input type="number" id="credit" value="30" min="0" /></div>
+        </div>
+        <div class="row"><button id="demo" type="button">Try with sample data</button></div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-rep">
+        <h2 id="h-rep">2. Aging</h2>
+        <div id="results" hidden>
+          <div class="table-wrap"><table id="t-aging"></table></div>
+          <div class="row"><button class="primary" id="csv" type="button">Aging CSV</button></div>
+        </div>
+        <p id="empty" class="hint">Load a file to see the aging.</p>
+      </section>
+
+      <section class="card" aria-labelledby="h-rem">
+        <h2 id="h-rem">3. Payment reminders</h2>
+        <div class="grid">
+          <div>
+            <label for="tone">Tone</label
+            ><select id="tone">
+              <option value="friendly">Friendly</option>
+              <option value="firm">Firm</option>
+            </select>
+          </div>
+          <div><label for="min">Only if overdue is at least (Rs.)</label><input type="number" id="min" value="0" min="0" /></div>
+          <div><label for="sender">Sign as</label><input type="text" id="sender" maxlength="60" /></div>
+          <div><label for="company">Company</label><input type="text" id="company" maxlength="80" /></div>
+        </div>
+        <div class="row">
+          <button id="make" type="button" class="primary">Write reminders</button><button id="copy" type="button">Copy</button>
+        </div>
+        <label for="rem-out">Reminders (one block per party)</label>
+        <textarea id="rem-out" class="out" rows="10" readonly></textarea>
+        <p class="status" id="rem-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed - <a href="vendor/README.md">SheetJS</a></footer>
+    </main>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
