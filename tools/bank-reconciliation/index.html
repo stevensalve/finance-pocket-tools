@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Bank Reconciliation - match bank and books (offline)</title>
+    <meta
+      name="description"
+      content="Match bank statement lines to ledger entries and list what is left over. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Bank Reconciliation</h1>
+          <p>Match the bank statement to your books and see what is left.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-files">
+        <h2 id="h-files">1. Load both lists</h2>
+        <div class="cols2">
+          <div>
+            <label class="dropzone" id="drop-bank"
+              >Bank statement (Excel or CSV)<input type="file" id="file-bank" accept=".xlsx,.xls,.csv,.tsv"
+            /></label>
+            <p class="status" id="st-bank" role="status"></p>
+          </div>
+          <div>
+            <label class="dropzone" id="drop-book"
+              >Books / bank ledger (Excel or CSV)<input type="file" id="file-book" accept=".xlsx,.xls,.csv,.tsv"
+            /></label>
+            <p class="status" id="st-book" role="status"></p>
+          </div>
+        </div>
+        <p class="hint">
+          Each file needs a Date and either an Amount or Debit/Credit columns. Bank statement: Credit = money in. Books: Debit = money in.
+          Reference, cheque or UTR numbers make matching stronger.
+        </p>
+        <div class="row"><button id="demo" type="button">Try with sample data</button></div>
+      </section>
+
+      <section class="card" aria-labelledby="h-set">
+        <h2 id="h-set">2. Match</h2>
+        <div class="grid">
+          <div>
+            <label for="window">Dates may differ by up to (days)</label><input type="number" id="window" value="3" min="0" max="60" />
+          </div>
+          <div><label for="bank-bal">Closing balance on bank statement</label><input type="number" id="bank-bal" step="any" /></div>
+          <div><label for="book-bal">Closing balance in books</label><input type="number" id="book-bal" step="any" /></div>
+        </div>
+        <label class="inline"
+          ><input type="checkbox" id="groups" checked /> Also match one entry against 2 or 3 entries that add up to it</label
+        >
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-res">
+        <h2 id="h-res">3. Result</h2>
+        <div id="results" hidden>
+          <h3>Reconciliation statement</h3>
+          <table class="totals" id="brs">
+            <tbody></tbody>
+          </table>
+          <h3>In bank but not in books (record these in the books)</h3>
+          <div class="table-wrap"><table id="t-bank"></table></div>
+          <h3>In books but not in bank (timing items: deposits in transit, cheques not presented)</h3>
+          <div class="table-wrap"><table id="t-book"></table></div>
+          <h3>Possible duplicates</h3>
+          <ul id="dups"></ul>
+          <details>
+            <summary>Matched lines</summary>
+            <div class="table-wrap"><table id="t-matched"></table></div>
+          </details>
+          <div class="row"><button class="primary" id="csv" type="button">Download everything as CSV</button></div>
+        </div>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed - <a href="vendor/README.md">SheetJS</a></footer>
+    </main>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Budget vs Actual - variance by category (offline)</title>
+    <meta
+      name="description"
+      content="Variance by category and month, with over-spend flags and CSV export. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Budget vs Actual</h1>
+          <p>Variance by category, with the good and bad flagged.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-files">
+        <h2 id="h-files">1. Load budget and actuals</h2>
+        <div class="cols2">
+          <div>
+            <label class="dropzone" id="drop-budget"
+              >Budget (Excel or CSV)<input type="file" id="file-budget" accept=".xlsx,.xls,.csv,.tsv"
+            /></label>
+            <p class="status" id="st-budget" role="status"></p>
+          </div>
+          <div>
+            <label class="dropzone" id="drop-actual"
+              >Actuals (Excel or CSV)<input type="file" id="file-actual" accept=".xlsx,.xls,.csv,.tsv"
+            /></label>
+            <p class="status" id="st-actual" role="status"></p>
+          </div>
+        </div>
+        <p class="hint">
+          Either layout works: Category with one column per month (Apr, May, ...), or Category, Month and Amount in rows. An optional Type
+          column (Income or Expense) tells the tool which direction is good.
+        </p>
+        <div class="grid">
+          <div><label for="fy">Financial year starting</label><input type="number" id="fy" min="1990" max="2100" /></div>
+          <div>
+            <label for="through">Compare through</label
+            ><select id="through"></select>
+          </div>
+          <div>
+            <label for="tol">Treat differences under (%) as on budget</label
+            ><input type="number" id="tol" value="5" min="0" max="100" step="any" />
+          </div>
+        </div>
+        <div class="row"><button id="demo" type="button">Try with sample data</button></div>
+      </section>
+
+      <section class="card" aria-labelledby="h-res">
+        <h2 id="h-res">2. Variance</h2>
+        <div id="results" hidden>
+          <div class="table-wrap"><table id="t-var"></table></div>
+          <h3>Year-end outlook (net result)</h3>
+          <table class="totals">
+            <tbody id="outlook"></tbody>
+          </table>
+          <p class="hint">Outlook = actual net result so far plus the budgeted net result for the months still to come.</p>
+          <div class="row"><button class="primary" id="csv" type="button">Variance CSV</button></div>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed - <a href="vendor/README.md">SheetJS</a></footer>
+    </main>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

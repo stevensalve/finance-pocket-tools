@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>GST Calculator &amp; Summary - add, remove and summarise GST (offline)</title>
+    <meta
+      name="description"
+      content="Add or remove GST and summarise a sales or purchase register by rate, month and party. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>GST Calculator &amp; Summary</h1>
+          <p>Add or remove GST, and check a register rate by rate.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-quick">
+        <h2 id="h-quick">1. Quick GST calculator</h2>
+        <div class="grid">
+          <div><label for="amount">Amount (Rs.)</label><input type="number" id="amount" value="1000" min="0" step="any" /></div>
+          <div>
+            <label for="rate">GST rate</label
+            ><select id="rate"></select>
+          </div>
+          <div>
+            <label for="mode">The amount is</label
+            ><select id="mode">
+              <option value="exclusive">Before GST (add GST)</option>
+              <option value="inclusive">Including GST (take GST out)</option>
+            </select>
+          </div>
+          <div>
+            <label for="kind">Supply</label
+            ><select id="kind">
+              <option value="intra">Same state (CGST + SGST)</option>
+              <option value="inter">Different state (IGST)</option>
+            </select>
+          </div>
+        </div>
+        <table class="totals">
+          <tbody id="quick-out"></tbody>
+        </table>
+        <p class="status" id="quick-status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-reg">
+        <h2 id="h-reg">2. Summarise a sales or purchase register</h2>
+        <label class="dropzone" id="drop"
+          >Drop an Excel or CSV register here, or click to choose<input type="file" id="file" accept=".xlsx,.xls,.csv,.tsv"
+        /></label>
+        <p class="hint">
+          Columns it understands: Invoice No, Date, Party, GSTIN, Taxable Value, GST Rate, CGST, SGST, IGST, Total. Missing amounts are
+          worked out where possible.
+        </p>
+        <div class="row"><button id="demo" type="button">Try with sample data</button></div>
+        <p class="status" id="reg-status" role="status"></p>
+        <div id="results" hidden>
+          <h3>Totals by GST rate</h3>
+          <div class="table-wrap"><table id="t-rate"></table></div>
+          <h3>By month</h3>
+          <div class="table-wrap"><table id="t-month"></table></div>
+          <h3>By type</h3>
+          <div class="table-wrap"><table id="t-kind"></table></div>
+          <h3>Top parties</h3>
+          <div class="table-wrap"><table id="t-party"></table></div>
+          <h3>Rows to check</h3>
+          <ul id="issues"></ul>
+          <div class="row"><button class="primary" id="csv" type="button">Summary CSV</button></div>
+        </div>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed - <a href="vendor/README.md">SheetJS</a></footer>
+    </main>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

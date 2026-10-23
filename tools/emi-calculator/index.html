@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Loan &amp; EMI Calculator - schedule and prepayment (offline)</title>
+    <meta
+      name="description"
+      content="EMI, full amortisation schedule and the effect of prepayments, with PDF. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Loan &amp; EMI Calculator</h1>
+          <p>EMI, the full repayment schedule, and what part-payments save you.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-in">
+        <h2 id="h-in">1. The loan</h2>
+        <div class="grid">
+          <div>
+            <label for="principal">Loan amount (Rs.)</label><input type="number" id="principal" value="2500000" min="0" step="any" />
+          </div>
+          <div>
+            <label for="rate">Interest rate (% a year)</label><input type="number" id="rate" value="8.5" min="0" max="100" step="any" />
+          </div>
+          <div><label for="years">Tenure (years)</label><input type="number" id="years" value="20" min="0" step="any" /></div>
+          <div><label for="months-extra">Plus months</label><input type="number" id="months-extra" value="0" min="0" max="11" /></div>
+          <div><label for="start">First instalment date (optional)</label><input type="date" id="start" /></div>
+        </div>
+        <label class="inline"><input type="checkbox" id="roundup" /> Round the EMI up to the next rupee, as many banks do</label>
+        <p class="status" id="status" role="status"></p>
+        <table class="totals">
+          <tbody id="summary"></tbody>
+        </table>
+      </section>
+
+      <section class="card" aria-labelledby="h-pre">
+        <h2 id="h-pre">2. Pay it off faster (optional)</h2>
+        <div class="grid">
+          <div>
+            <label for="extra">Extra payment every month (Rs.)</label><input type="number" id="extra" value="0" min="0" step="any" />
+          </div>
+        </div>
+        <label for="prepay">One-off part-payments, one per line as "month: amount" (for example 12: 100000)</label>
+        <textarea id="prepay" rows="3"></textarea>
+        <p class="status" id="pre-status" role="status"></p>
+        <p id="saving"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-sched">
+        <h2 id="h-sched">3. Schedule</h2>
+        <h3>Year by year</h3>
+        <div class="table-wrap"><table id="t-year"></table></div>
+        <details>
+          <summary>Month by month</summary>
+          <div class="table-wrap"><table id="t-month"></table></div>
+        </details>
+        <div class="row">
+          <div><label for="borrower">Borrower (for the PDF)</label><input type="text" id="borrower" maxlength="80" /></div>
+          <div><label for="lender">Lender (for the PDF)</label><input type="text" id="lender" maxlength="80" /></div>
+        </div>
+        <div class="row">
+          <button class="primary" id="pdf" type="button">Download PDF</button>
+          <button id="csv" type="button">Schedule CSV</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="h-aff">
+        <h2 id="h-aff">What loan can I afford?</h2>
+        <div class="grid">
+          <div>
+            <label for="can-pay">Monthly amount I can pay (Rs.)</label><input type="number" id="can-pay" value="30000" min="0" step="any" />
+          </div>
+        </div>
+        <p id="afford"></p>
+        <p class="hint">Uses the interest rate and tenure above.</p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed - <a href="vendor/README.md">pdf-lib</a></footer>
+    </main>
+    <script src="vendor/pdf-lib.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

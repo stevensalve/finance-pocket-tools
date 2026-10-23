@@ -1,0 +1,183 @@
+/* Leave & Holiday Planner - tool-specific styles. */
+.container.wide {
+  max-width: 72rem;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.three {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.inline {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  font-weight: 400;
+}
+h3 {
+  margin: 1.25rem 0 0.4rem;
+  font-size: 1rem;
+}
+td.over {
+  color: #b91c1c;
+  font-weight: 700;
+}
+table.grid-cal {
+  font-size: 0.78rem;
+  border-collapse: collapse;
+}
+table.grid-cal th,
+table.grid-cal td {
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.3rem;
+  text-align: center;
+  min-width: 1.4rem;
+}
+table.grid-cal td.name {
+  text-align: left;
+  white-space: nowrap;
+  font-weight: 600;
+}
+table.grid-cal td.c-L {
+  background: #fecaca;
+  font-weight: 700;
+}
+table.grid-cal td.c-h {
+  background: #fde68a;
+}
+table.grid-cal td.c-W {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+table.grid-cal td.c-H {
+  background: #bfdbfe;
+  font-weight: 700;
+}
+ul#warnings {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+label.file {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+}
+label.file input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+label.file:focus-within {
+  outline: 2px solid var(--accent, #2563eb);
+}
+.bar {
+  height: 0.6rem;
+  background: #e5e7eb;
+  border-radius: 99px;
+  overflow: hidden;
+  min-width: 6rem;
+}
+.bar > span {
+  display: block;
+  height: 100%;
+  background: #16a34a;
+}
+.bar.low > span {
+  background: #dc2626;
+}
+.bar.mid > span {
+  background: #d97706;
+}
+td.late {
+  color: #b91c1c;
+  font-weight: 700;
+}
+td.chk {
+  text-align: center;
+}
+textarea.out {
+  width: 100%;
+  font-family: inherit;
+}
+table.items input,
+table.items select {
+  width: 100%;
+  min-width: 4rem;
+}
+table.items td.desc input {
+  min-width: 12rem;
+}
+.totals {
+  margin-left: auto;
+  max-width: 22rem;
+}
+.totals td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.totals tr.strong td {
+  font-weight: 700;
+  border-top: 2px solid var(--border);
+}
+.cols2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.container.wide {
+  max-width: 72rem;
+}
+.inline {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  font-weight: 400;
+}
+label.file {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+}
+label.file input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+label.file:focus-within {
+  outline: 2px solid var(--accent, #2563eb);
+}
+ul#problems {
+  color: #b91c1c;
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+h3 {
+  margin: 0.5rem 0 0.4rem;
+  font-size: 1rem;
+}
